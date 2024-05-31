@@ -13,10 +13,16 @@ def main(ip = "127.0.0.1", port = 8000):
         "features_names": dataset.columns.tolist(),
         "model": "lgbm",
     }
+#    response = requests.post(
+#        f"http://{ip}:{port}/predict",
+#        json=data_json,
+#    )
+
     response = requests.post(
-        f"http://{ip}:{port}/predict",
+        f"http://{ip}:{port}/will_it_rain",
         json=data_json,
     )
+
     print(f"Status code:\n{response.status_code}")
     print(f"Result:\n{response.json()}")
 

@@ -6,6 +6,9 @@ from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
+import os
+
+#sys.path.append(os.path.abspath("."))
 
 # Импортируем вспомогательные функции из data_utils
 from online_inference.data_utils import (
@@ -64,6 +67,24 @@ def predict(request: InputData):
     logger.info(msg=f"Prediction finished. It's OK :) {y_pred}")
     return OutputData(predicted_values=y_pred) # Возвращаем результат
 
+# Функция, которая получает данные в post-запросе и возвращает бинарный скор:
+# 1 - если вероятность, предсказанная моделью, превышает 0.6
+# 0 - в обратном случае
+
+@app.post("/will_it_rain", response_model=OutputData)
+def predict_rain(request: InputData):
+    data = get_data(request) # Парсим данные из запроса в DataFrame
+    logger.info(msg=f"Data loaded")
+    try:
+        y_pred = model_lgbm.predict_proba(data)[:, 1] # Получаем предикт
+        y_pred_binary = [int(y > 0.6) for y in y_pred]
+    except Exception as e:
+        raise HTTPException( # Если что-то идёт не так, выдаём ошибку и код 500
+            status_code=500,
+            detail="Error: something went wrong while binary prediction")
+
+    logger.info(msg=f"Binary prediction finished. It's OK :) {y_pred_binary}")
+    return OutputData(predicted_values=y_pred_binary) # Возвращаем результат
 
 # Функция, срабатывающая при ошибке парсинга данных
 # (если данные в post запросе имеют неправильный формат)

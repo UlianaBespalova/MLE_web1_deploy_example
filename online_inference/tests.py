@@ -88,14 +88,14 @@ class TestOnlineInference(unittest.TestCase):
             self.assertAlmostEqual(response.json()['predicted_values'][2], 0.71, delta=0.005)
 
     # Тест для /will_it_rain
-    # def test_will_it_rain_ok(self):
-    #     with TestClient(app) as client:
-    #         response = client.post("/will_it_rain", json=self.data_to_predict)
-    #         self.assertEqual(response.status_code, 200)
-    #         self.assertEqual(len(response.json()['predicted_values']), 3)
-    #         self.assertEqual(response.json()['predicted_values'][0], response.json()['predicted_values'][1])
-    #         self.assertEqual(response.json()['predicted_values'][0], 0.0)
-    #         self.assertEqual(response.json()['predicted_values'][2], 1.0)
+    def test_will_it_rain_ok(self):
+        with TestClient(app) as client:
+            response = client.post("/will_it_rain", json=self.data_to_predict)
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(len(response.json()['predicted_values']), 3)
+            self.assertEqual(response.json()['predicted_values'][0], response.json()['predicted_values'][1])
+            self.assertEqual(response.json()['predicted_values'][0], 0.0)
+            self.assertEqual(response.json()['predicted_values'][2], 1.0)
 
 
 if __name__ == '__main__':

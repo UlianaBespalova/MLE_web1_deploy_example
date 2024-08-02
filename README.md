@@ -48,6 +48,45 @@ uvicorn --app-dir=online_inference app:app --host 127.0.0.1 --port 8000
 python -m online_inference.script
 ~~~
 
+Проверить post-запросы можно с помощью скрипта:
+```bash
+curl -X 'POST' \
+  'http://localhost:8000/predict' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "features_names": [
+        "Date",
+        "Location",
+        "WindGustDir",
+        "WindDir9am",
+        "WindDir3pm",
+        "MinTemp",
+        "MaxTemp",
+        "Rainfall",
+        "Evaporation",
+        "Sunshine",
+        "WindGustSpeed",
+        "WindSpeed9am",
+        "WindSpeed3pm",
+        "Humidity9am",
+        "Humidity3pm",
+        "Pressure9am",
+        "Pressure3pm",
+        "Cloud9am",
+        "Cloud3pm",
+        "Temp9am",
+        "Temp3pm",
+        "RainToday"
+    ],
+    "data": [
+        ["2021-03-23", "Cobar", "W", "W", "W", 15, 18, 0.5, 3, 7, 40, 40, 40, 80, 80, 1000, 1000, 9, 9, 20, 20, "Yes"],
+        ["2021-03-23", "Cobar", "W", "W", "W", 15, 18, 0.5, 3, 7, 40, 40, 40, 80, 80, 1000, 1000, 9, 9, 20, 20, "Yes"],
+        ["2028-03-23", "Albury", "ENE", "ENE", "ENE", 15, 18, 0.9, 3, 7, 40, 40, 40, 90, 99, 1000, 1000, 9, 9, 20, 20, "No"]
+    ],
+    "model": "lgbm"
+}'
+```
 
 ##### 2. Задание для самостоятельного выполнения
 Все файлики, с которыми мы будем работать, находятся в папке online_inference.

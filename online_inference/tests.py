@@ -10,35 +10,35 @@ class TestOnlineInference(unittest.TestCase):
     def setUp(self):
         self.data_to_predict = {
             "features_names": [
-                'Date',
-                'Location',
-                'WindGustDir',
-                'WindDir9am',
-                'WindDir3pm',
-                'MinTemp',
-                'MaxTemp',
-                'Rainfall',
-                'Evaporation',
-                'Sunshine',
-                'WindGustSpeed',
-                'WindSpeed9am',
-                'WindSpeed3pm',
-                'Humidity9am',
-                'Humidity3pm',
-                'Pressure9am',
-                'Pressure3pm',
-                'Cloud9am',
-                'Cloud3pm',
-                'Temp9am',
-                'Temp3pm',
-                'RainToday'
+                "Date",
+                "Location",
+                "WindGustDir",
+                "WindDir9am",
+                "WindDir3pm",
+                "MinTemp",
+                "MaxTemp",
+                "Rainfall",
+                "Evaporation",
+                "Sunshine",
+                "WindGustSpeed",
+                "WindSpeed9am",
+                "WindSpeed3pm",
+                "Humidity9am",
+                "Humidity3pm",
+                "Pressure9am",
+                "Pressure3pm",
+                "Cloud9am",
+                "Cloud3pm",
+                "Temp9am",
+                "Temp3pm",
+                "RainToday"
             ],
             "data": [
-                ['2021-03-23', 'Cobar', 'W', 'W', 'W', 15, 18, 0.5, 3, 7, 40, 40, 40, 80, 80, 1000, 1000, 9, 9, 20, 20, 'Yes'],
-                ['2021-03-23', 'Cobar', 'W', 'W', 'W', 15, 18, 0.5, 3, 7, 40, 40, 40, 80, 80, 1000, 1000, 9, 9, 20, 20, 'Yes'],
-                ['2028-03-23', 'Albury', 'ENE', 'ENE', 'ENE', 15, 18, 0.9, 3, 7, 40, 40, 40, 90, 99, 1000, 1000, 9, 9, 20, 20, 'No'],
+                ["2021-03-23", "Cobar", "W", "W", "W", 15, 18, 0.5, 3, 7, 40, 40, 40, 80, 80, 1000, 1000, 9, 9, 20, 20, "Yes"],
+                ["2021-03-23", "Cobar", "W", "W", "W", 15, 18, 0.5, 3, 7, 40, 40, 40, 80, 80, 1000, 1000, 9, 9, 20, 20, "Yes"],
+                ["2028-03-23", "Albury", "ENE", "ENE", "ENE", 15, 18, 0.9, 3, 7, 40, 40, 40, 90, 99, 1000, 1000, 9, 9, 20, 20, "No"]
             ],
-            "model": "lgbm",
+            "model": "lgbm"
         }
 
     # Проверяем работу корневой страницы. Ожидаем получить код 200 и сообщение "Predictor is alive"
@@ -95,14 +95,14 @@ class TestOnlineInference(unittest.TestCase):
 
 
     # Тест для /will_it_rain
-    # def test_will_it_rain_ok(self):
-    #     with TestClient(app) as client:
-    #         response = client.post("/will_it_rain", json=self.data_to_predict)
-    #         self.assertEqual(response.status_code, 200)
-    #         self.assertEqual(len(response.json()['predicted_values']), 3)
-    #         self.assertEqual(response.json()['predicted_values'][0], response.json()['predicted_values'][1])
-    #         self.assertEqual(response.json()['predicted_values'][0], 0.0)
-    #         self.assertEqual(response.json()['predicted_values'][2], 1.0)
+    def test_will_it_rain_ok(self):
+        with TestClient(app) as client:
+            response = client.post("/will_it_rain", json=self.data_to_predict)
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(len(response.json()['predicted_values']), 3)
+            self.assertEqual(response.json()['predicted_values'][0], response.json()['predicted_values'][1])
+            self.assertEqual(response.json()['predicted_values'][0], 0.0)
+            self.assertEqual(response.json()['predicted_values'][2], 1.0)
 
 
 if __name__ == '__main__':

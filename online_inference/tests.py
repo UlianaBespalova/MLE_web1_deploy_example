@@ -1,7 +1,7 @@
 import unittest
 
 from fastapi.testclient import TestClient
-from online_inference.app import app
+from .app import app
 
 
 class TestOnlineInference(unittest.TestCase):

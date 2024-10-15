@@ -8,7 +8,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
 # Импортируем вспомогательные функции из data_utils
-from online_inference.data_utils import (
+from .data_utils import (
     InputData,
     OutputData,
     get_data,
@@ -38,7 +38,8 @@ def startup():
     try:
         model_lgbm = get_model(model_path) # Если успешно, пишем, что всё ок
         logger.info(msg="Model is loaded")
-    except Exception:
+    except Exception as e:
+        print(e)
         logger.error(f"model not found") # Иначе пишем предупреждение
         raise RuntimeError(f"model not found")
 

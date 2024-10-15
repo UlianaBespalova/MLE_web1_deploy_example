@@ -19,7 +19,7 @@ class ModelParams:
     save_path: str
     metric_path: str
     model: str = field(default="GradientBoosting")
-    lgbm_params: BoostingParams = field(default=BoostingParams())
+    lgbm_params: BoostingParams = field(default_factory=BoostingParams)
 
 
 @dataclass()

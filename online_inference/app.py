@@ -49,22 +49,6 @@ def startup():
 def main():
     return "Predictor is alive :)"
 
-
-@app.get("/is_ready")
-def is_ready():
-    if model_lgbm:
-        status = 200
-        mess = "Model is ready"
-    else:
-        status = 500
-        mess = "Model not found :("
-    return JSONResponse(
-        status_code = status,
-        content=jsonable_encoder({"Message":mess})
-    )
-
-
-
 # Функция, которая получает данные в post-запросе и возвращает скор
 @app.post("/predict", response_model=OutputData)
 def predict(request: InputData):

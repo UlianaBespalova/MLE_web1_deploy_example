@@ -64,6 +64,23 @@ def predict(request: InputData):
     logger.info(msg=f"Prediction finished. It's OK :) {y_pred}")
     return OutputData(predicted_values=y_pred) # Возвращаем результат
 
+
+@app.get("/is_ready")
+def is_ready():
+    if model_lgbm:
+        status = 200
+        message = "Model is ready ^-^"
+    else:
+        status = 500
+        message = "Model not found :("
+    return JSONResponse(
+        status_code = status,
+        content = jsonable_encoder({"Message": message})
+    )
+
+
+
+
 # Функция, срабатывающая при ошибке
 # (если данные в post запросе имеют неправильный формат)
 @app.exception_handler(RequestValidationError)

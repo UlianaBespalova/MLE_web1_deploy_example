@@ -6,7 +6,7 @@ import pandas as pd
 # Выбирает n случайных строк из файла weather.csv.gz, упаковывает в json и отправляет
 # На указанный адрес
 def main(ip = "127.0.0.1", port = 8000):
-    dataset = pd.read_csv("data/weather.csv.gz").dropna().sample(n=10, random_state=42)
+    dataset = pd.read_csv("data/weather.csv.gz").dropna().sample(n=20, random_state=42)
     dataset.drop(["RainTomorrow"], axis=1, inplace=True)
     data_json = {
         "data": dataset.values.tolist(),

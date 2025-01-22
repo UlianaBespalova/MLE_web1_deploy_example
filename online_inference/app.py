@@ -8,7 +8,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
 # Импортируем вспомогательные функции из data_utils
-from data_utils import (
+from .data_utils import (
     InputData,
     OutputData,
     get_data,
@@ -61,6 +61,22 @@ def predict(request: InputData):
 
     logger.info(msg=f"Prediction finished. It's OK :) {y_pred}")
     return OutputData(predicted_values=y_pred) # Возвращаем результат
+
+
+@app.get("/is_ready")
+def is_ready():
+    if model_lgbm:
+        code = 200
+        msg = "Model is ready ^-^"
+    else:
+        code = 500
+        msg = "Model not found"
+    return JSONResponse(
+        status_code = code,
+        content = jsonable_encoder({"Message": msg})
+    )
+
+
 
 # Функция, срабатывающая при ошибке
 # (если данные в post запросе имеют неправильный формат)

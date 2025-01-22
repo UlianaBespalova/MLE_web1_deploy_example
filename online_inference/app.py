@@ -8,7 +8,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
 # Импортируем вспомогательные функции из data_utils
-from .data_utils import (
+from data_utils import (
     InputData,
     OutputData,
     get_data,
@@ -24,7 +24,6 @@ formatter = logging.Formatter(
 handler.setFormatter(formatter)
 logger.setLevel(logging.DEBUG)
 logger.addHandler(handler)
-
 
 app = FastAPI()
 
@@ -42,7 +41,6 @@ def startup():
         print(e)
         logger.error(f"model not found") # Иначе пишем предупреждение
         raise RuntimeError(f"model not found")
-
 
 # При открытии корневой страницы пишем, что всё хорошо
 @app.get("/")

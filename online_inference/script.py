@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 
+print(print.__doc__)
 
 # Функция для отправки post-запроса.
 # Выбирает n случайных строк из файла weather.csv.gz, упаковывает в json и отправляет

@@ -9,7 +9,7 @@ on:  # Триггеры для запуска пайплайна
 
 jobs: # Список джоб
   validation: # Имя джобы
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:   # Действия для нашей job
       - name: Clone repo  # Клонируем наш репозиторий
         uses: actions/checkout@v2

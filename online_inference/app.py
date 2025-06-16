@@ -8,7 +8,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
 # Импортируем вспомогательные функции из data_utils
-from .data_utils import (
+from online_inference.data_utils import (
     InputData,
     OutputData,
     get_data,
@@ -62,6 +62,11 @@ def predict(request: InputData):
     logger.info(msg=f"Prediction finished. It's OK :) {y_pred}")
     return OutputData(predicted_values=y_pred) # Возвращаем результат
 
+@app.post('/will_it_rain')
+def will_it_rain(request: InputData):
+    prediction = predict(request)
+
+    return {"predicted_values": [int(p > 0.6) for p in prediction.predicted_values]}
 
 @app.get("/is_ready")
 def is_ready():

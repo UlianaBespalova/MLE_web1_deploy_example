@@ -47,9 +47,11 @@ class TestOnlineInference(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), "Predictor is alive :)")
 
+
     def test_predict_error_get(self):
         response = client.get("/predict")
         self.assertEqual(response.status_code, 405)
+
 
     # Проверка случаев, когда данные в post-запросе не проходят валидацию
     def test_predict_error_data(self):
@@ -86,7 +88,13 @@ class TestOnlineInference(unittest.TestCase):
             self.assertAlmostEqual(response.json()['predicted_values'][0], response.json()['predicted_values'][1])
             self.assertAlmostEqual(response.json()['predicted_values'][0], 0.036, delta=0.005)
             self.assertAlmostEqual(response.json()['predicted_values'][2], 0.71, delta=0.005)
-            
+
+
+    def test_is_ready(self):
+        with TestClient(app) as client:
+            response = client.get('/is_ready')
+            self.assertEqual(response.status_code, 200)
+
 
     # Тест для /will_it_rain
     # def test_will_it_rain_ok(self):

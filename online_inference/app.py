@@ -42,6 +42,7 @@ def startup():
         logger.error(f"model not found") # Иначе пишем предупреждение
         raise RuntimeError(f"model not found")
 
+
 # При открытии корневой страницы пишем, что всё хорошо
 @app.get("/")
 def main():
@@ -62,19 +63,6 @@ def predict(request: InputData):
     logger.info(msg=f"Prediction finished. It's OK :) {y_pred}")
     return OutputData(predicted_values=y_pred) # Возвращаем результат
 
-
-@app.get("/is_ready")
-def is_ready():
-    if model_lgbm:
-        status = 200
-        msg = "Model is ready ^-^"
-    else:
-        status = 500
-        msg = "Model not found :("
-    return JSONResponse(
-        status_code = status,
-        content=jsonable_encoder({"Message":msg})
-    )
 
 
 # Функция, срабатывающая при ошибке

@@ -88,7 +88,7 @@ class TestOnlineInference(unittest.TestCase):
             self.assertEqual(len(response.json()['predicted_values']), 3) # Ожидаем 3 значения
             self.assertAlmostEqual(response.json()['predicted_values'][0], response.json()['predicted_values'][1])
             self.assertAlmostEqual(response.json()['predicted_values'][0], 0.036, delta=0.005)
-            self.assertAlmostEqual(response.json()['predicted_values'][2], 0.71, delta=0.005)s
+            self.assertAlmostEqual(response.json()['predicted_values'][2], 0.71, delta=0.005)
 
     # Тест для /will_it_rain
     # def test_will_it_rain_ok(self):

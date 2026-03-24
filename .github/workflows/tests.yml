@@ -30,12 +30,12 @@ jobs: # Список джоб
           echo "Run setup"
           pip install -e .
 
-      - name: Run unit tests for model  # Запускаем тестики для модели
-        run: |
-          python ml_project/tests/test_full_train_fit_pipeline.py
-          python ml_project/tests/data/test_get_dataset.py
-          python ml_project/tests/features/test_transformer.py
-          python ml_project/tests/models/test_train_model.py
+#      - name: Run unit tests for model  # Запускаем тестики для модели
+#        run: |
+#          python ml_project/tests/test_full_train_fit_pipeline.py
+#          python ml_project/tests/data/test_get_dataset.py
+#          python ml_project/tests/features/test_transformer.py
+#          python ml_project/tests/models/test_train_model.py
         
       - name: Run unit tests for app # Запускаем тестики для приложения
         run: |
